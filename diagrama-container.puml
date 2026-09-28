@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(produtor, "Produtor Rural", "Usuário responsável pelo cadastro das lavouras e dos custos")
+
+System_Boundary(sistema, "Sistema de Custo de Produção de Lavoura") {
+
+    Container(interface, "Interface Web", "HTML + CSS", "Permite ao produtor cadastrar lavouras, registrar custos e consultar informações")
+
+    Container(aplicacao, "Aplicação Web", "Python + Flask", "Processa as solicitações, aplica as regras do sistema e calcula os custos")
+
+    ContainerDb(banco, "Banco de Dados", "SQLite", "Armazena lavouras, custos e demais informações do sistema")
+}
+
+Rel(produtor, interface, "Utiliza")
+Rel(interface, aplicacao, "Envia solicitações")
+Rel(aplicacao, banco, "Lê e grava dados")
+Rel(aplicacao, interface, "Retorna informações")
+
+@enduml
