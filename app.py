@@ -12,6 +12,10 @@ def inicio():
 def custos():
     return render_template("custos.html")
 
+@app.route("/consulta")
+def consulta():
+    return render_template("consulta.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
