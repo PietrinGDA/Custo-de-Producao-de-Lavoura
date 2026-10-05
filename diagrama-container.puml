@@ -18,3 +18,25 @@ Rel(aplicacao, banco, "Lê e grava dados")
 Rel(aplicacao, interface, "Retorna informações")
 
 @enduml
+@startuml
+
+title Arquitetura do Sistema - Custo de Produção
+
+actor "Produtor Rural" as Usuario
+
+rectangle "Sistema Web Flask" {
+    rectangle "Cadastro de Custos" as Cadastro
+    rectangle "Consulta de Custos" as Consulta
+    rectangle "Cálculo do Total" as Calculo
+}
+
+database "Banco de Dados" as Banco
+
+Usuario --> Cadastro
+Usuario --> Consulta
+Cadastro --> Banco
+Consulta --> Banco
+Consulta --> Calculo
+Calculo --> Usuario
+
+@enduml
