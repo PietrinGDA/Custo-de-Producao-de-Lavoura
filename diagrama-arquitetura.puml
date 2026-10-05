@@ -1,0 +1,22 @@
+@startuml
+
+title Arquitetura do Sistema - Custo de Produção
+
+actor "Produtor Rural" as Usuario
+
+rectangle "Sistema Web" {
+    rectangle "Cadastro de Custos" as Cadastro
+    rectangle "Consulta de Custos" as Consulta
+    rectangle "Cálculo do Total" as Calculo
+}
+
+database "Banco de Dados" as Banco
+
+Usuario --> Cadastro
+Usuario --> Consulta
+Cadastro --> Banco
+Consulta --> Banco
+Consulta --> Calculo
+Calculo --> Usuario
+
+@enduml
