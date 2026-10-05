@@ -8,5 +8,10 @@ def inicio():
     return render_template("lavouras.html")
 
 
+@app.route("/custos")
+def custos():
+    return render_template("custos.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
