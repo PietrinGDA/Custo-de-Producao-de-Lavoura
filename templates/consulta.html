@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Consulta de Custos</title>
+</head>
+<body>
+    <h1>Consulta de Custos</h1>
+
+    <form>
+        <label for="lavoura">Lavoura:</label>
+        <input type="text" id="lavoura" name="lavoura">
+
+        <br><br>
+
+        <button type="submit">Consultar</button>
+    </form>
+
+    <h2>Resultados</h2>
+
+    <p>Nenhum custo cadastrado para exibir.</p>
+</body>
+</html>
