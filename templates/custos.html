@@ -9,9 +9,16 @@
 <body>
     <h1>Cadastro de Custos</h1>
 
-    <form>
-        <label for="lavoura">Lavoura:</label>
-        <input type="text" id="lavoura" name="lavoura" required>
+    <form method="POST" action="{{ url_for('custos') }}">
+        <label for="lavoura_id">Lavoura:</label>
+        <select id="lavoura_id" name="lavoura_id" required>
+            <option value="">Selecione uma lavoura</option>
+            {% for lavoura in lavouras %}
+                <option value="{{ lavoura.id }}">
+                    {{ lavoura.nome }} - {{ lavoura.cultura }} ({{ lavoura.ano }})
+                </option>
+            {% endfor %}
+        </select>
 
         <label for="descricao">Descrição do custo:</label>
         <input type="text" id="descricao" name="descricao" required>
@@ -36,5 +43,35 @@
 
         <button type="submit">Cadastrar Custo</button>
     </form>
+        <hr>
+
+    <h2>Custos cadastrados</h2>
+
+    {% if custos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Lavoura</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for custo in custos %}
+                    <tr>
+                        <td>{{ custo.nome_lavoura }}</td>
+                        <td>{{ custo.descricao }}</td>
+                        <td>{{ custo.categoria }}</td>
+                        <td>R$ {{ "%.2f"|format(custo.valor) }}</td>
+                        <td>{{ custo.data }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum custo cadastrado ainda.</p>
+    {% endif %}
 </body>
 </html>

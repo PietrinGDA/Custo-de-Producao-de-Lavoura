@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Editar Custo</title>
+</head>
+<body>
+    <h1>Editar Custo</h1>
+
+    <form method="POST">
+        <label for="descricao">Descrição:</label>
+        <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            value="{{ custo.descricao }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" required>
+            <option value="insumos" {% if custo.categoria == 'insumos' %}selected{% endif %}>Insumos</option>
+            <option value="mao_de_obra" {% if custo.categoria == 'mao_de_obra' %}selected{% endif %}>Mão de obra</option>
+            <option value="maquinas" {% if custo.categoria == 'maquinas' %}selected{% endif %}>Máquinas</option>
+            <option value="combustivel" {% if custo.categoria == 'combustivel' %}selected{% endif %}>Combustível</option>
+            <option value="outros" {% if custo.categoria == 'outros' %}selected{% endif %}>Outros</option>
+        </select>
+
+        <br><br>
+
+        <label for="valor">Valor (R$):</label>
+        <input
+            type="number"
+            id="valor"
+            name="valor"
+            step="0.01"
+            min="0"
+            value="{{ custo.valor }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="data">Data:</label>
+        <input
+            type="date"
+            id="data"
+            name="data"
+            value="{{ custo.data }}"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Salvar alterações</button>
+    </form>
+
+    <p><a href="{{ url_for('consulta') }}">Voltar para a consulta</a></p>
+</body>
+</html>
