@@ -9,7 +9,7 @@
 <body>
     <h1>Consulta de Custos</h1>
 
-    <form>
+    <form method="GET" action="{{ url_for('consulta') }}">
         <label for="lavoura">Lavoura:</label>
         <input type="text" id="lavoura" name="lavoura">
 
@@ -33,6 +33,45 @@
 
     <h2>Resultados</h2>
 
-    <p>Nenhum custo cadastrado para exibir.</p>
+{% if custos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Lavoura</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for custo in custos %}
+                <tr>
+                    <td>{{ custo.nome_lavoura }}</td>
+                    <td>{{ custo.descricao }}</td>
+                    <td>{{ custo.categoria }}</td>
+                    <td>R$ {{ "%.2f"|format(custo.valor) }}</td>
+                    <td>{{ custo.data }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_custo', id=custo.id) }}">Editar</a>
+
+                        <form method="POST"
+                            action="{{ url_for('excluir_custo', id=custo.id) }}"
+                            onsubmit="return confirm('Tem certeza de que deseja excluir este custo?');"
+                            style="display: inline;">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Total dos custos: R$ {{ "%.2f"|format(total) }}</h3>
+{% else %}
+    <p>Nenhum custo encontrado com os filtros informados.</p>
+    <h3>Total dos custos: R$ 0,00</h3>
+{% endif %}
 </body>
 </html>

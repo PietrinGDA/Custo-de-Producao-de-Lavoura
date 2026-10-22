@@ -9,7 +9,7 @@
 <body>
     <h1>Cadastro de Lavouras</h1>
 
-    <form>
+    <form method="POST" action="{{ url_for('inicio') }}">
         <label for="nome">Nome da lavoura:</label>
         <input type="text" id="nome" name="nome" required>
 
@@ -27,5 +27,42 @@
 
         <button type="submit">Cadastrar Lavoura</button>
     </form>
+        <hr>
+
+    <h2>Lavouras cadastradas</h2>
+
+    {% if lavouras %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cultura</th>
+                    <th>Ano</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lavoura in lavouras %}
+                    <tr>
+                        <td>{{ lavoura.nome }}</td>
+                        <td>{{ lavoura.cultura }}</td>
+                        <td>{{ lavoura.ano }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_lavoura', id=lavoura.id) }}">Editar</a>
+
+                            <form method="POST"
+                                action="{{ url_for('excluir_lavoura', id=lavoura.id) }}"
+                                onsubmit="return confirm('Tem certeza de que deseja excluir esta lavoura?');"
+                                style="display: inline;">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma lavoura cadastrada ainda.</p>
+    {% endif %}
 </body>
 </html>
